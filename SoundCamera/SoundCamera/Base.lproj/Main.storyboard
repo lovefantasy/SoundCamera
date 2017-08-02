@@ -1,14 +1,17 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="SoundCamera" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -16,11 +19,39 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o3L-jI-G7y">
+                                <rect key="frame" x="0.0" y="500" width="375" height="167"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oi7-0i-NBi" customClass="RenderView" customModule="GPUImage">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="500"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="500" id="kWe-uH-z8v"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="o3L-jI-G7y" firstAttribute="top" secondItem="Oi7-0i-NBi" secondAttribute="bottom" id="GRK-1C-xnN"/>
+                            <constraint firstItem="Oi7-0i-NBi" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="VcO-Eq-sGA"/>
+                            <constraint firstAttribute="trailing" secondItem="Oi7-0i-NBi" secondAttribute="trailing" id="WBA-f5-90W"/>
+                            <constraint firstItem="o3L-jI-G7y" firstAttribute="top" secondItem="Oi7-0i-NBi" secondAttribute="bottom" id="WR1-3j-W4W"/>
+                            <constraint firstItem="Oi7-0i-NBi" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="bGp-Ic-qrn"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="o3L-jI-G7y" secondAttribute="bottom" id="eeM-V9-Rh3"/>
+                            <constraint firstItem="o3L-jI-G7y" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="oUk-Qa-pBi"/>
+                            <constraint firstAttribute="trailing" secondItem="o3L-jI-G7y" secondAttribute="trailing" id="yfb-D9-pj6"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="cameraContainerView" destination="Oi7-0i-NBi" id="Ga7-Fp-UDZ"/>
+                        <outlet property="waveContainerView" destination="o3L-jI-G7y" id="t7x-ba-K91"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="24.800000000000001" y="36.431784107946029"/>
         </scene>
     </scenes>
 </document>
