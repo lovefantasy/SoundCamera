@@ -1,0 +1,12 @@
+PODS:
+  - AudioKit (3.7.1)
+
+DEPENDENCIES:
+  - AudioKit (~> 3.7)
+
+SPEC CHECKSUMS:
+  AudioKit: e04d3282bf904cdf7121965edb067177c6d1c7d1
+
+PODFILE CHECKSUM: 8785fb8bef2cd3fb4eb336621c6167fa21006fc9
+
+COCOAPODS: 1.2.1.beta.1
