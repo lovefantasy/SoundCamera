@@ -19,9 +19,10 @@ class ViewController: UIViewController, CameraDelegate {
     let swirlFilter = SwirlDistortion()
     
     // AudioKit components
-    var mic: AKMicrophone!
-    var tracker: AKFrequencyTracker!
-    var silence: AKBooster!
+    var mic: AKMicrophone
+    var fft: CustomFFT
+//    var tracker: AKFrequencyTracker!
+//    var silence: AKBooster!
     var accel: Float = 0.0
     
     required init(coder aDecoder: NSCoder)
@@ -35,8 +36,9 @@ class ViewController: UIViewController, CameraDelegate {
         
         AKSettings.audioInputEnabled = true
         mic = AKMicrophone()
-        tracker = AKFrequencyTracker(mic)
-        silence = AKBooster(tracker, gain: 0)
+        fft = CustomFFT.init(mic)
+//        tracker = AKFrequencyTracker(mic)
+//        silence = AKBooster(tracker, gain: 0)
         
         super.init(coder: aDecoder)!
         guard videoCamera != nil else {
@@ -63,15 +65,15 @@ class ViewController: UIViewController, CameraDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.startCamera()
-        AudioKit.output = silence
+        AudioKit.output = mic
         AudioKit.start()
 
-        let plot = AKNodeOutputPlot(mic, frame: waveContainerView.bounds)
-        plot.plotType = .rolling
-        plot.shouldFill = true
-        plot.shouldMirror = true
-        plot.color = UIColor.blue
-        waveContainerView.addSubview(plot)
+//        let plot = AKNodeOutputPlot(mic, frame: waveContainerView.bounds)
+//        plot.plotType = .rolling
+//        plot.shouldFill = true
+//        plot.shouldMirror = true
+//        plot.color = UIColor.blue
+//        waveContainerView.addSubview(plot)
         
         swirlFilter.angle = 0
         swirlFilter.radius = 0.75
@@ -93,9 +95,12 @@ class ViewController: UIViewController, CameraDelegate {
     }
 
     func didCaptureBuffer(_ sampleBuffer: CMSampleBuffer) {
-        NSLog("Freq: %.1f, Amp: %.3f", tracker.frequency, tracker.amplitude)
-        let power = Float(tracker.frequency / 4000.0 + tracker.amplitude / 5)
-        updateSwirlFilter(freq: power > 0.06 ? power : 0)
+//        NSLog("Freq: %.1f, Amp: %.3f", tracker.frequency, tracker.amplitude)
+//        let power = Float(tracker.frequency / 4000.0 + tracker.amplitude / 5)
+//        updateSwirlFilter(freq: power > 0.06 ? power : 0)
+        for i in 0..<256 {
+            NSLog("%d Hz: %f", i, fft.fftData[i])
+        }
     }
     
     func updateSwirlFilter(freq: Float) {

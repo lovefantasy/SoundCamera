@@ -5,9 +5,10 @@ import AudioKit
     
     internal let bufferSize: UInt32 = 512
     internal var fft: EZAudioFFT?
-    open var freqRange = [40, 80, 120, 180, 300]
-    open var fftData = [Double](zeros: 256)
-    open var fftFreq = [Double](zeros: 256)
+    let freqRange = [40, 80, 120, 180, 300]
+    open var freqMax = [Float](zeros: 6)
+    open var freqDict = [Int](zeros: 6)
+    open var fftData = [Double](zeros: 256) //old: 512
     
     public init(_ input: AKNode) {
         super.init()
@@ -33,8 +34,19 @@ import AudioKit
     /// Callback function for FFT computation
     @objc open func fft(_ fft: EZAudioFFT!, updatedWithFFTData fftData: UnsafeMutablePointer<Float>, bufferSize: vDSP_Length) {
         DispatchQueue.main.async { () -> Void in
+//            for i in 0..<256 { //old: 512
+//                let freq = Int(fft.frequency(at: vDSP_Length(i)))
+//                if freq >= 30 && freq <= 300 {
+//                    let magnitude = fft.frequencyMagnitude(at: vDSP_Length(i))
+//                    let index = self.getIndex(freq)
+//                    if magnitude > self.freqMax[index] {
+//                        self.freqMax[index] = magnitude
+//                        self.freqDict[index] = freq
+//                    }
+//                }
+//            }
             for i in 0..<256 { //old: 512
-                // do something...
+                self.fftData[i] = Double(fftData[i])
             }
         }
     }
